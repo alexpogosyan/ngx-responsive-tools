@@ -1,16 +1,10 @@
-import { NgModule } from '@angular/core';
-import { NgxResponsiveToolsComponent } from './ngx-responsive-tools.component';
-
-
+import { NgModule } from "@angular/core";
+import { NgxResponsiveToolsComponent } from "./ngx-responsive-tools.component";
+import { NgxResponsiveToolsDirective } from "./ngx-responsive-tools.directive";
 
 @NgModule({
-  declarations: [
-    NgxResponsiveToolsComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    NgxResponsiveToolsComponent
-  ]
+  declarations: [NgxResponsiveToolsComponent, NgxResponsiveToolsDirective],
+  imports: [],
+  exports: [NgxResponsiveToolsComponent, NgxResponsiveToolsDirective],
 })
-export class NgxResponsiveToolsModule { }
+export class NgxResponsiveToolsModule {}
