@@ -17,19 +17,18 @@ export class NgxResponsiveToolsDirective {
     private ngxResponsiveService: NgxResponsiveToolsService
   ) {}
 
-  @Input() set ngxResponsive(bps: Breakpoint | Breakpoint[]) {
-    const breakpoints = Array.isArray(bps) ? bps : [bps];
-    this.subscribeToObservables(breakpoints);
+  @Input() set ngxResponsive(bp: Breakpoint) {
+    this.subscribeToObservables(bp);
   }
 
-  protected subscribeToObservables(breakpoints: Breakpoint[]) {
-    const observables = breakpoints.map(
-      (bp) => this.ngxResponsiveService[`${bp}$`]
-    );
+  private subscribeToObservables(bp: Breakpoint) {
+    if (!this.ngxResponsiveService.hasOwnProperty(`${bp}$`)) {
+      console.error(`Unknown breakpoint ${bp}`);
+      return;
+    }
 
-    this.responsiveSub = combineLatest(observables)
-      .pipe(map((matches) => matches.some((match) => match)))
-      .subscribe((match) => {
+    this.responsiveSub = this.ngxResponsiveService[`${bp}$`].subscribe(
+      (match) => {
         if (match && !this.hasView) {
           this.viewContainer.createEmbeddedView(this.templateRef);
           this.hasView = true;
@@ -37,7 +36,8 @@ export class NgxResponsiveToolsDirective {
           this.viewContainer.clear();
           this.hasView = false;
         }
-      });
+      }
+    );
   }
 
   ngOnDestroy() {
