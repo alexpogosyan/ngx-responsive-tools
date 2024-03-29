@@ -1,10 +1,9 @@
 import { NgModule } from "@angular/core";
-import { NgxResponsiveToolsComponent } from "./ngx-responsive-tools.component";
-import { NgxResponsiveToolsDirective } from "./ngx-responsive-tools.directive";
+import { NgxBreakpointDirective } from "./ngx-breakpoint.directive";
 
 @NgModule({
-  declarations: [NgxResponsiveToolsComponent, NgxResponsiveToolsDirective],
+  declarations: [NgxBreakpointDirective],
   imports: [],
-  exports: [NgxResponsiveToolsComponent, NgxResponsiveToolsDirective],
+  exports: [NgxBreakpointDirective],
 })
 export class NgxResponsiveToolsModule {}

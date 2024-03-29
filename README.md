@@ -24,6 +24,18 @@ export class AppModule { }
 
 ```
 
+
+\
+Show content on one or more screen sizes in templates:
+```
+...
+<div *ngxBreakpoint="'lg'">This is visible only on lg screen size</div>
+
+<div *ngxBreakpoint="['xs', 'md']">This is visible only xs and md screen sizes</div>
+...
+```
+
+
 \
 Use responsive service in component files:
 
@@ -40,12 +52,4 @@ export class MyComponent {
     
   }  
 }
-```
-
-\
-In templates you can use responsive directive like this:
-```
-...
-<div *ngxResponsive="'sm'">This is visible on sm screen size</div>
-...
 ```

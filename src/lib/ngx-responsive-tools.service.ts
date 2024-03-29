@@ -1,30 +1,67 @@
 import { Injectable } from "@angular/core";
-import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { map } from "rxjs/operators";
+import { BreakpointObserver } from "@angular/cdk/layout";
+import { map, shareReplay, takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { Breakpoint } from "./ngx-responsive-tools.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class NgxResponsiveToolsService {
-  xs$ = this.breakpointObserver
-    .observe("(max-width: 479px)")
-    .pipe(map((bp: BreakpointState) => bp?.matches));
+  private queries = {
+    [Breakpoint.XlOnly]: '(min-width: 1225px)',
+    [Breakpoint.XlUp]: '(min-width: 1225px)',
+    [Breakpoint.XlDown]: '(max-width: 3840px)',
 
-  sm$ = this.breakpointObserver
-    .observe("(min-width: 480px)")
-    .pipe(map((bp: BreakpointState) => bp?.matches));
+    [Breakpoint.LgOnly]: '(min-width: 960px) and (max-width: 1224px)',
+    [Breakpoint.LgUp]: '(min-width: 960px)',
+    [Breakpoint.LgDown]: '(max-width: 1224px)',
 
-  md$ = this.breakpointObserver
-    .observe("(min-width: 768px)")
-    .pipe(map((bp: BreakpointState) => bp?.matches));
+    [Breakpoint.MdOnly]: '(min-width: 600px) and (max-width: 959px)',
+    [Breakpoint.MdDown]: '(max-width: 959px)',
+    [Breakpoint.MdUp]: '(min-width: 600px)',
 
-  lg$ = this.breakpointObserver
-    .observe("(min-width: 1024px)")
-    .pipe(map((bp: BreakpointState) => bp?.matches));
+    [Breakpoint.SmOnly]: '(min-width: 521px) and (max-width: 599px)',
+    [Breakpoint.SmDown]: '(max-width: 599px)',
+    [Breakpoint.SmUp]: '(min-width: 521px)',
 
-  xl$ = this.breakpointObserver
-    .observe("(min-width: 1200px)")
-    .pipe(map((bp: BreakpointState) => bp?.matches));
+    [Breakpoint.XsOnly]: '(min-width: 1px) and (max-width: 520px)',
+    [Breakpoint.XsDown]: '(max-width: 520px)',
+    [Breakpoint.XsUp]: '(min-width: 1px)'
+  };
+  
+  private destroy$: Subject<void> = new Subject<void>();
+
+  xl$ = this.observe(Breakpoint.XlOnly);
+  xlUp$ = this.observe(Breakpoint.XlUp);
+  xlDown$ = this.observe(Breakpoint.XlDown);
+
+  lg$ = this.observe(Breakpoint.LgOnly);
+  lgUp$ = this.observe(Breakpoint.LgUp);
+  lgDown$ = this.observe(Breakpoint.LgDown);
+
+  md$ = this.observe(Breakpoint.MdOnly);
+  mdUp$ = this.observe(Breakpoint.MdUp);
+  mdDown$ = this.observe(Breakpoint.MdDown);
+
+  sm$ = this.observe(Breakpoint.SmOnly);
+  smUp$ = this.observe(Breakpoint.SmUp);
+  smDown$ = this.observe(Breakpoint.SmDown);
+
+  xs$ = this.observe(Breakpoint.XsOnly);
+  xsUp$ = this.observe(Breakpoint.XsUp);
+  xsDown$ = this.observe(Breakpoint.XsDown);
 
   constructor(private breakpointObserver: BreakpointObserver) {}
+
+  private observe(breakpoint: Breakpoint) {
+    return this.breakpointObserver
+      .observe([this.queries[breakpoint]])
+      .pipe(takeUntil(this.destroy$), map(x => x?.matches), shareReplay(1));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }  
 }
