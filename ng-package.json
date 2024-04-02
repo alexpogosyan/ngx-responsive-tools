@@ -1,5 +1,8 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "assets": [
+    { "input": "src/styles", "glob": "**/*.scss", "output": "styles" }
+  ],  
   "dest": "../../dist/ngx-responsive-tools",
   "lib": {
     "entryFile": "src/public-api.ts"

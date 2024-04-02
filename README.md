@@ -35,6 +35,26 @@ Show content on one or more screen sizes in templates:
 ...
 ```
 
+\
+Use SCSS mixin to add custom styles for certain sizes:
+```
+@import '~ngx-responsive-tools/styles/responsive.scss';
+...
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @include responsive(xs) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+...
+```
+
 
 \
 Use responsive service in component files:

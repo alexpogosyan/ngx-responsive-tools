@@ -1,0 +1,48 @@
+$breakpoint-ranges: (
+  xl: (
+    1200px,
+    9999px,
+  ),
+  lg: (
+    1024px,
+    1199px
+  ),
+  md: (
+    768px,
+    1023px
+  ),
+  sm: (
+    480px,
+    767px
+  ),
+  xs: (
+    1px,
+    479px
+  )
+);
+
+@mixin responsive($breakpoint, $direction: 'only') {
+  @if map-has-key(vars.$breakpoint-ranges, $breakpoint) {
+    $range: map-get(vars.$breakpoint-ranges, $breakpoint);
+    $min: nth($range, 1);
+    $max: nth($range, 2);
+
+    @if $direction == 'up' {
+      @media (min-width: $min) {
+        @content;
+      }
+    } @else if $direction == 'down' {
+      @media (max-width: $max) {
+        @content;
+      }
+    } @else if $direction == 'only' {
+      @media (min-width: $min) and (max-width: $max) {
+        @content;
+      }
+    } @else {
+      @warn "Unknown direction `#{$direction}` in `responsive` mixin.";
+    }
+  } @else {
+    @warn "Unknown breakpoint `#{$breakpoint}` in `responsive` mixin.";
+  }
+}

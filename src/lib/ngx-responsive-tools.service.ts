@@ -9,24 +9,24 @@ import { Breakpoint } from "./ngx-responsive-tools.model";
 })
 export class NgxResponsiveToolsService {
   private queries = {
-    [Breakpoint.XlOnly]: '(min-width: 1225px)',
-    [Breakpoint.XlUp]: '(min-width: 1225px)',
-    [Breakpoint.XlDown]: '(max-width: 3840px)',
+    [Breakpoint.XlOnly]: '(min-width: 1200px)',
+    [Breakpoint.XlUp]: '(min-width: 1200px)',
+    [Breakpoint.XlDown]: '(max-width: 9999px)',
 
-    [Breakpoint.LgOnly]: '(min-width: 960px) and (max-width: 1224px)',
-    [Breakpoint.LgUp]: '(min-width: 960px)',
-    [Breakpoint.LgDown]: '(max-width: 1224px)',
+    [Breakpoint.LgOnly]: '(min-width: 1024px) and (max-width: 1199px)',
+    [Breakpoint.LgUp]: '(min-width: 1024px)',
+    [Breakpoint.LgDown]: '(max-width: 1199px)',
 
-    [Breakpoint.MdOnly]: '(min-width: 600px) and (max-width: 959px)',
-    [Breakpoint.MdDown]: '(max-width: 959px)',
-    [Breakpoint.MdUp]: '(min-width: 600px)',
+    [Breakpoint.MdOnly]: '(min-width: 768px) and (max-width: 1023px)',
+    [Breakpoint.MdDown]: '(max-width: 1023px)',
+    [Breakpoint.MdUp]: '(min-width: 768px)',
 
-    [Breakpoint.SmOnly]: '(min-width: 521px) and (max-width: 599px)',
-    [Breakpoint.SmDown]: '(max-width: 599px)',
-    [Breakpoint.SmUp]: '(min-width: 521px)',
+    [Breakpoint.SmOnly]: '(min-width: 480px) and (max-width: 767px)',
+    [Breakpoint.SmDown]: '(max-width: 767px)',
+    [Breakpoint.SmUp]: '(min-width: 480px)',
 
-    [Breakpoint.XsOnly]: '(min-width: 1px) and (max-width: 520px)',
-    [Breakpoint.XsDown]: '(max-width: 520px)',
+    [Breakpoint.XsOnly]: '(min-width: 1px) and (max-width: 479px)',
+    [Breakpoint.XsDown]: '(max-width: 479px)',
     [Breakpoint.XsUp]: '(min-width: 1px)'
   };
   
